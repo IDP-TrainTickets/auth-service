@@ -12,6 +12,8 @@ app.config['SECRET_KEY'] = 'secret-key-test-123'
 db = SQLAlchemy(app)
 
 class User(db.Model):
+    __tablename__ = "app_user"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -42,6 +44,6 @@ def login():
     return jsonify({'token': token})
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+    #with app.app_context():
+    #    db.create_all()
     app.run(host='0.0.0.0', port=5000)
