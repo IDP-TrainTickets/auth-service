@@ -34,6 +34,7 @@ def login():
         return jsonify({"message": "Invalid"}), 401
     
     token = jwt.encode({
+        'iss': 'auth-service',
         'user_id': user.id,
         'user_type': user.user_type,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=2)
