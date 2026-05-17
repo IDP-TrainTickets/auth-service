@@ -33,6 +33,10 @@ jobs:
             ${{ vars.DOCKERHUB_NAMESPACE }}/${{ github.event.repository.name }}:latest
             ${{ vars.DOCKERHUB_NAMESPACE }}/${{ github.event.repository.name }}:${{ github.sha }}
 
+
+  # Since we are using local deployments each member will deploy his own version
+  # in a separate job step, also it seems the webhook URL is not persistent so
+  # redeployments of the whole stack will change the webhook
   deploy-andrei:
     runs-on: ["self-hosted", "andrei"]
     if: github.actor == 'andreistan26'
