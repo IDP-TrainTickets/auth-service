@@ -1,4 +1,4 @@
-name: Build and publish to Dockerhub
+name: Build, publish to Dockerhub and deploy
 
 on:
   push:
@@ -32,3 +32,10 @@ jobs:
           tags: |
             ${{ vars.DOCKERHUB_NAMESPACE }}/${{ github.event.repository.name }}:latest
             ${{ vars.DOCKERHUB_NAMESPACE }}/${{ github.event.repository.name }}:${{ github.sha }}
+
+  deploy-andrei:
+    runs-on: ["self-hosted", "andrei"]
+    if: github.actor == 'andreistan26'
+    steps:
+      - run: curl -X POST http://127.0.0.1:9000/api/webhooks/8247841a-4ba8-4ff0-8fa4-30f615f765a8
+
